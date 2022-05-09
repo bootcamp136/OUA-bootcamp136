@@ -80,7 +80,7 @@ Sprint Review katılımcıları:
 
 Bazı takım üyelerinin inaktif tutumundan dolayı süreç sekteye uğramıştır.
 
-Eksik takım arkadaşları nedeniyle çalışma saatlerinin arttırılmasına karar verilmiştir. 
+Eksik takım arkadaşları nedeniyle çalışma saatlerinin artırılmasına karar verilmiştir. 
 
 
 # Sprint 2 
