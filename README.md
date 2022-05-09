@@ -68,6 +68,21 @@ Daily Scrum: Daily Scrum toplantıları Discord üzerinden yapılmasına karar v
 
 ### Sprint Review:
 
+Alınan Kararlar: 1. Sprintte ön görülemeyen durumlardan ötürü, eksik kalan tasklarin fazlasıyla tamamlanması kararlaştırılmıştır. Mümkünse 12-14 kadar task tamamlanması ideal olacaktır. Güncel olarak scriptlerde bir hata bulunmamaktadır.
+
+Sprint Review katılımcıları:
+   
+                            Yusuf Koray Can
+
+                            Can Apa
+                            
+### Sprint Retrospective:
+
+Bazı takım üyelerinin inaktif tutumundan dolayı süreç sekteye uğramıştır.
+
+Eksik takım arkadaşları nedeniyle çalışma saatlerinin arttırılmasına karar verilmiştir. 
+
+
 # Sprint 2 
 
 # Sprint 3 
