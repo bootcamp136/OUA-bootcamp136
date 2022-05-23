@@ -99,6 +99,19 @@ Daily Scrum: Daily Scrum toplantıları Discord üzerinden yapılmasına karar v
 ![2](https://user-images.githubusercontent.com/104436686/169898943-61d3a4ed-dfb7-4d5b-bc8c-c465de6eed99.PNG)
 ![3](https://user-images.githubusercontent.com/104436686/169898946-53ff7f1e-faa7-4cd1-ae80-680c7194f663.PNG)
 ![4](https://user-images.githubusercontent.com/104436686/169898953-d7bd8d5f-a373-4c23-93ef-1593a73c87ae.PNG)
+![Screenshot_79](https://user-images.githubusercontent.com/104436686/169899968-46fdf159-561a-467f-bb2c-77becfd3d5e6.png)
+<img width="1920" alt="Ekran_Resmi_2022-05-23_23 19 59" src="https://user-images.githubusercontent.com/104436686/169899973-4b7d47cb-68ed-466d-a295-45b4dbdc7dc5.png">
+
+### Sprint Review:
+
+Alınan kararlar: Envanter sisteminden vazgeçildi ve save-load sistemini basic şekilde yapmaya karar verildi. Kapsamı biraz daraltma kararı alındı. 
+
+Sprint Review katılımcıları: Yusuf Koray CAN , Can APA
+
+### Sprint Retrospective:
+
+Kapsam demo ölçeğinde daraltılmıştır. Güncel bug'lar fixlenecektir. 
+
 
 
 
