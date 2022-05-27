@@ -15,14 +15,15 @@ MonoBehaviour:
   version: 5
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shader Graphs_galaxy_shader_lit
   m_Shader: {fileID: -6465566751694194690, guid: e77f201984dd2b54381b7d2ef7963a6b, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -47,11 +48,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _FresnelPower: 10
-    - _NoiseScale: 1
+    - _NoiseScale: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ScrollSpeed: 1
     m_Colors:
-    - _InnerColor: {r: 1, g: 0.2065069, b: 0.043137252, a: 0}
-    - _OuterColor: {r: 1, g: 0.87276506, b: 0, a: 0}
+    - _InnerColor: {r: 0.5230708, g: 1.4859966, b: 2.270603, a: 1}
+    - _OuterColor: {r: 1.7568628, g: 8.721569, b: 11.984314, a: 1}
   m_BuildTextureStacks: []

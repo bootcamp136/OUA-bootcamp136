@@ -6,14 +6,20 @@ using UnityEngine.InputSystem;
 public class ZombieAttack : MonoBehaviour
 {
     
-    private int damage = 1;
+    private int damage = 5;
     public EnemyAI _enemyAI;
-    [SerializeField] ChangeRotateAndShake shakeandRotate;
-   
-    
-   // private bool isDestroyingCharacter;
-    public StarterAssets.ThirdPersonController tpc; //Public yaptým, direk olarak editörden veriyorum. Çünkü scriptten ulaþmaya çalýþýnca null referance diyor.
-    
+    ChangeRotateAndShake shakeandRotate;
+    StarterAssets.ThirdPersonController tpc;
+    HealthBarScript _healthBarScript;
+
+
+    private void Start()
+    {
+        shakeandRotate = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ChangeRotateAndShake>();
+        tpc = GameObject.FindGameObjectWithTag("Player").GetComponent<StarterAssets.ThirdPersonController>();
+        _healthBarScript = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBarScript>();
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,9 +27,11 @@ public class ZombieAttack : MonoBehaviour
 
             if (_enemyAI.attack == true)
             {
-             //  Vector3 distance = tpc.gameObject.transform.position - gameObject.transform.position;
-             //  Debug.Log(distance.magnitude);
-                tpc.playerHealth -= damage;
+                //  Vector3 distance = tpc.gameObject.transform.position - gameObject.transform.position;
+                //  Debug.Log(distance.magnitude);
+                 tpc.playerHealth -= damage;
+                _healthBarScript.SetHealth((int)tpc.playerHealth);
+                Debug.Log("Current Health Player:" + tpc.playerHealth);
                 StartCoroutine(shakeandRotate.ShakeEffect(shakeandRotate.shakeTime));
                
             }

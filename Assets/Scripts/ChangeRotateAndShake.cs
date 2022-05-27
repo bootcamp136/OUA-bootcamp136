@@ -5,11 +5,18 @@ using Cinemachine;
 
 public class ChangeRotateAndShake : MonoBehaviour
 {
-    public CinemachineVirtualCamera cinemachineVirtualCam;
+    CinemachineVirtualCamera cinemachineVirtualCam;
+    CinemachineCameraOffset cinemachineCameraOffset;
     public float amplitudeGain;
     public float frequencyGain;
     public float shakeTime;
     public float shakeAttackTime;
+
+    private void Awake()
+    {
+        cinemachineVirtualCam = GameObject.FindGameObjectWithTag("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
+        cinemachineCameraOffset = GameObject.FindGameObjectWithTag("PlayerFollowCamera").GetComponent<CinemachineCameraOffset>();
+    }
 
     public IEnumerator ShakeEffect(float shakeTime)
     {
@@ -29,4 +36,23 @@ public class ChangeRotateAndShake : MonoBehaviour
         cinemachineVirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
         cinemachineVirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
     }
+
+    public IEnumerator BobbingEffect(float time)
+    {
+        //04 iyi gibi.
+            cinemachineCameraOffset.m_Offset.y = .06f;
+            yield return new WaitForSeconds(time);
+            cinemachineCameraOffset.m_Offset.y = -.06f;
+
+        
+    }
+    public IEnumerator IdleEffect(float time)
+    {
+        cinemachineCameraOffset.m_Offset.x = .4f;
+        yield return new WaitForSeconds(time);
+        cinemachineCameraOffset.m_Offset.x = 0f;
+        yield return new WaitForSeconds(time);
+    }
+
+
 }

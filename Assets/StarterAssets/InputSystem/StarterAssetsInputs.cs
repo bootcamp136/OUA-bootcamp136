@@ -20,10 +20,19 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
+		ChangeRotateAndShake changeRotateAndShake;
+
+
+		private void Start()
+        {
+			changeRotateAndShake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ChangeRotateAndShake>();
+		}
+
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-		public void OnMove(InputValue value)
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
+			
 		}
 
 		public void OnLook(InputValue value)

@@ -9,9 +9,8 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
    
-
-    public takeDamage td;
-    public StarterAssets.ThirdPersonController tpc;
+    [SerializeField] takeDamage td;
+    StarterAssets.ThirdPersonController tpc;
 
     public int enemyHealth = 100;
     public Animator _animator;
@@ -23,7 +22,7 @@ public class EnemyAI : MonoBehaviour
     public GameObject projectile;
 
 
-    public NavMeshAgent _navMeshAgent;
+    [SerializeField] NavMeshAgent _navMeshAgent;
     public Transform _player;
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -42,17 +41,21 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    
+
 
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
-    }
+        tpc = GameObject.FindGameObjectWithTag("Player").GetComponent<StarterAssets.ThirdPersonController>();
 
+    }
     private void Update()
     {
         //Check for sight and attack range (Update'te almasýnýn sebebi: Sürekli kontrol etmemiz lazým.)
+        //Bir tane obje olsun(Merkezde tüm prefab'lerin,bu objenin layer'ýný whatIsObject gibi bir þey yapalým, objeRange yapalým bir de... )
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer); // En sondaki layerMask'imiz.
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
         if (!playerInSightRange && !playerInAttackRange)
@@ -63,13 +66,14 @@ public class EnemyAI : MonoBehaviour
 
         if(playerInSightRange && !playerInAttackRange)
         {
-            ChasePlayer(); 
+            ChasePlayer();
             
         }
 
         if (playerInSightRange && playerInAttackRange)
         {
             AttackPlayer();
+           
         }
        
         if (tpc.playerHealth <= 0)
@@ -82,23 +86,8 @@ public class EnemyAI : MonoBehaviour
             Dead();
         }
 
-
-
-       // if (tpc.atack == true)
-       // {
-       //     AttackFalselama();
-       // }
-
-
     }
-       // private void AttackFalselama()
-       // {
-       //     
-       //     attack = false;
-       //     _animator.SetBool("attack", false);
-       //     
-       // }
-
+  
     private void takeDamageTruelama()
     {
         td.getHit = true;
@@ -125,12 +114,10 @@ public class EnemyAI : MonoBehaviour
         {
             walkPointSet = false;
         }
-
-        
     }
     private void SearchWalkPoint()
     {
-        _navMeshAgent.speed = 5.0f;
+        _navMeshAgent.speed = .5f;
         _animator.SetBool("isSeePlayer", false);
         //Calculate Random point in Range.
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
@@ -138,8 +125,7 @@ public class EnemyAI : MonoBehaviour
 
         walkPoint = new Vector3(transform.position.x+randomX,transform.position.y,transform.position.z+randomZ);
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))  //Ground olarak belirlediðimiz yerden çýkýp çýkmadýðýný denetliyoruz, eðer çýkmýþsa bunun içerisine girmeyecek.
-                                                                          //Bunu da raycast kullanarak belirliyoruz.
+        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))  //Ground olarak belirlediðimiz yerden çýkýp çýkmadýðýný denetliyoruz, eðer çýkmýþsa bunun içerisine girmeyecek.                                                                  //Bunu da raycast kullanarak belirliyoruz.
         {
             walkPointSet = true; 
         }
@@ -147,45 +133,18 @@ public class EnemyAI : MonoBehaviour
     }
     private void ChasePlayer()
     {
+        _navMeshAgent.speed = 1.0f;
         attack = false;
         _animator.SetBool("isSeePlayer",true);
         _animator.SetBool("attack", attack);
         _navMeshAgent.SetDestination(_player.position);
         _navMeshAgent.speed = 10.0f;
-        Vector3 distance = _player.position - gameObject.transform.position;
-        if (distance.magnitude <= 5)
-        {
-            _navMeshAgent.speed = 4.0f;
-        }
-        else
-        {
-            _navMeshAgent.speed = 10.0f;
-        }
-
     }
     private void AttackPlayer()
     {
         Invoke(nameof(Attacking), .2f);
-       
-
-
-        //Make sure enemy doesn't move 
         _navMeshAgent.SetDestination(transform.position);
-
         transform.LookAt(_player);
-
-  //     if (!alreadyAttacked)
-  //     {
-  //         //Attack code here
-  //
-  //         Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-  //         rb.AddForce(transform.forward * 35f, ForceMode.Impulse);
-  //         rb.AddForce(transform.up * 10, ForceMode.Impulse);
-  //
-  //
-  //         alreadyAttacked = true;
-  //         Invoke(nameof(ResetAttack),timeBetweenAttack);  //Karakter time kadar bekleyip, sonrasýnda aldreadyAttacked false olduðunda tekrardan projecTile instantiate oluyor.
-  //     }
     }
     private void Attacking()
     {
@@ -200,35 +159,4 @@ public class EnemyAI : MonoBehaviour
     {
         _navMeshAgent.SetDestination(transform.position);
     }
-    //Atýlan objeleri destroy et.
-    //Yakýna gelince vuruþ animasyonu ekle, mixamodan çek. (Zombi gibi yapalým, uzaktan hiç vurmasýn hatta.)
-    //   private void ResetAttack()
-    //   {
-    //       alreadyAttacked = false;
-    //   }
-
-    // public void TakeDamage(int damage)
-    // {
-    //     health -= damage;
-    //
-    //     if (health <= 0)
-    //     {
-    //         Invoke(nameof(DestroyEnemy),1f);
-    //     }
-    // }
-    // private void DestroyEnemy()
-    // {
-    //     Destroy(gameObject);
-    // }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-   //     Gizmos.color = Color.yellow;
-   //     Gizmos.DrawWireSphere(transform.position, sightRange);
-        
-    }
-
-
 }

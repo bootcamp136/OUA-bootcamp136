@@ -2,14 +2,15 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shader Graphs_flame_shader_lit 1
   m_Shader: {fileID: -6465566751694194690, guid: 3a4733dcba0291c41a215c71aa9e36cc, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -43,7 +44,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 13.92881, g: 0.9523391, b: 0, a: 0}
+    - _Color: {r: 67.79352, g: 15.972295, b: 6.033978, a: 0}
     - _DisolveSpeed: {r: -0.1, g: -0.5, b: 0, a: 0}
     - _DistortionSpeed: {r: 0, g: -0.3, b: 0, a: 0}
   m_BuildTextureStacks: []

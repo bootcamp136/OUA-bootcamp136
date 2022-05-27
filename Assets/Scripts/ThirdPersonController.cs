@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TMPro;
 using System.Collections;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -77,15 +78,24 @@ namespace StarterAssets
         public bool LockCameraPosition = false;
 
 
-        [SerializeField] ChangeRotateAndShake changeRotateAndShakeScript;
+       ChangeRotateAndShake changeRotateAndShakeScript;
 
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
 
         // player
-        [SerializeField] private takeDamage _takeDamage;
+        public LayerMask enemy;
 
+        private bool enemyInSightRange;
+        public float sightRangeforEnemy;
+
+        [SerializeField] takeDamage _takeDamage;
+         HealthBarScript _healtBarPlayer,_healthBarEnemy;
+
+        [SerializeField] TMP_Text _text; 
+        private float _numDiamond=0;
+        private bool bobbing;
         private bool back;
         private bool dodgeRight;
         private bool dodgeLeft;
@@ -93,7 +103,9 @@ namespace StarterAssets
         private bool idle;
         public bool atack;
         public bool _damaged;
-        public int playerHealth = 120;
+
+        public float playerHealth = 120;
+        
 
         private float _speed;
         private float _animationBlend;
@@ -145,6 +157,10 @@ namespace StarterAssets
 
         private void Awake()
         {
+            _healtBarPlayer = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBarScript>();
+            _healthBarEnemy = GameObject.FindGameObjectWithTag("EnemyHealthBar").GetComponent<HealthBarScript>();
+            _healtBarPlayer.SetMaxValue((int)playerHealth); 
+
             // get a reference to our main camera
             if (_mainCamera == null)
             {
@@ -152,7 +168,8 @@ namespace StarterAssets
             }
             _capsuleCollider = GetComponent<CapsuleCollider>();
             //_controller.detectCollisions = false;
-            _takeDamage = _takeDamage.GetComponent<takeDamage>();
+           // _takeDamage = GameObject.FindGameObjectWithTag("Enemy").GetComponent<takeDamage>();
+            changeRotateAndShakeScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ChangeRotateAndShake>();
         }
 
         private void Start()
@@ -174,6 +191,9 @@ namespace StarterAssets
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
 
+           
+            
+
             
         }
 
@@ -186,6 +206,19 @@ namespace StarterAssets
             GroundedCheck();
             Move();
 
+            enemyInSightRange = Physics.CheckSphere(transform.position, sightRangeforEnemy, enemy);
+
+            if (enemyInSightRange)
+            {
+                _healtBarPlayer.GetComponent<RectTransform>().localScale = new Vector3(1, 0.5f, 1);
+                _healthBarEnemy.GetComponent<RectTransform>().localScale = new Vector3(1, 0.5f, 1);
+            }
+            if (!enemyInSightRange)
+            {
+                _healtBarPlayer.GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
+                _healthBarEnemy.GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
+            }
+
 
             if (atack == false)
             {
@@ -197,8 +230,8 @@ namespace StarterAssets
 
                     //Bunları sakın kaybetme. Çok önemli triggerlanması için ve çift triggerlanMAMAsı için.!!!!
 
-
                     // Debug.Log("Triggerlandı");
+                    
                     StartCoroutine(DamageColliderAyarlama(1));
                     atack = true;
                     _animator.SetBool("Atack", atack);
@@ -292,9 +325,10 @@ namespace StarterAssets
 
                 }
             }
-            
-           
         }
+
+    
+      
         private void CharacterMoveForwardBack()
         {
             Dodge.z = 50 * Time.deltaTime;
@@ -404,14 +438,15 @@ namespace StarterAssets
             _animator.SetBool("DodgeLeft", dodgeLeft);
         }
 
+
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("PickableObject"))
-            {
-                Debug.Log("Triggerlandı");
-                
-                StartCoroutine(Checking(.001f));
-            }
+          //  if (other.gameObject.CompareTag("PickableObject")) //OnTriggerStay'de yaz.
+          //  {                                                  //OnTriggerStay'de yaz.
+          //      Debug.Log("Triggerlandı");
+          //      
+          //      StartCoroutine(Checking(.001f));
+          //  }
             if (other.gameObject.CompareTag("damage"))
             {
 
@@ -442,32 +477,31 @@ namespace StarterAssets
             }
 
 
-            IEnumerator Checking(float time)
-            {
-                while (true)
-                {
-                    yield return new WaitForSeconds(time);
-                    if (Input.GetKeyDown(KeyCode.E) && Grounded == true && !Input.GetKeyDown(KeyCode.Mouse0) && _input.sprint == false)
-                    {
-                        Debug.Log("IENUMERATOR İÇERİSİNDE");
-                        _animator.SetTrigger("Take");
-                        GameObject otherGameObject = other.gameObject;
-                        if(otherGameObject != null)
-                        {
-                            BoxCollider collider = other.GetComponent<BoxCollider>();
-                            if (collider!=null )
-                            {
-                                other.gameObject.GetComponent<MeshRenderer>().enabled = false;
-                                other.gameObject.GetComponent<BoxCollider>().enabled = false;
-                                
-                            }
-                        }
-                        
-                    }
-
-                }
-            }
-        }
+         //  IEnumerator Checking(float time)
+         //  {
+         //      while (true)
+         //      {
+         //          yield return new WaitForSeconds(time);
+         //          if (Input.GetKeyDown(KeyCode.E) && Grounded == true && !Input.GetKeyDown(KeyCode.Mouse0) && _input.sprint == false)
+         //          {
+         //              Debug.Log("IENUMERATOR İÇERİSİNDE");
+         //              _animator.SetTrigger("Take");
+         //              GameObject otherGameObject = other.gameObject;
+         //              if(otherGameObject != null)
+         //              {
+         //                  BoxCollider collider = other.GetComponent<BoxCollider>();
+         //                  if (collider!=null )
+         //                  {
+         //                      other.gameObject.GetComponent<MeshRenderer>().enabled = false;
+         //                      other.gameObject.GetComponent<BoxCollider>().enabled = false;
+         //                  }
+         //              }
+         //              
+         //          }
+         //
+         //      }
+         //  }
+        } 
         IEnumerator DamageColliderAyarlama(float time)
         {
             DamageColliderPasif();
@@ -475,6 +509,23 @@ namespace StarterAssets
             DamageColliderAktif();
 
         }
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.gameObject.CompareTag("PickableObject"))
+            {
+                Debug.Log("Obje toplanabilir.");
+                if (Input.GetKeyDown(KeyCode.E) && Grounded == true && !Input.GetKeyDown(KeyCode.Mouse0) && _input.sprint == false)
+                {
+                    _animator.SetTrigger("Take");
+                    _numDiamond+=.5f;   //İkili topluyor. 0.5 YAPTIM. İlerleyen zamanalarda değiştir. Belki trigger'dan kaynaklanıyordur. Sonradan bak.
+                    _text.text = "x" + (_numDiamond).ToString();
+                    Destroy(other.gameObject, 1f);
+
+                    //Destroy olmuşsa diamond number değerini artır.
+                }
+            }
+        }
+
         private void DamageColliderAktif()
         {
            GameObject[] damages = GameObject.FindGameObjectsWithTag("damage");
@@ -595,6 +646,7 @@ namespace StarterAssets
 
         private void Move()
         {
+            
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
@@ -652,12 +704,15 @@ namespace StarterAssets
             // move the player
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            
 
             // update animator if using character
             if (_hasAnimator)
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+
+               
             }
         }
 

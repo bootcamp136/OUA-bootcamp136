@@ -8,6 +8,16 @@ TagManager:
   - PickableObject
   - RightHand
   - sword
+  - Rooms
+  - damage
+  - Enemy
+  - baphomet
+  - SpawnPoint
+  - PlayerFollowCamera
+  - Zemin
+  - SceneDataSetting
+  - HealthBar
+  - EnemyHealthBar
   layers:
   - Default
   - TransparentFX
@@ -15,11 +25,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - whatIsGround
+  - whatIsPlayer
+  - enemy
+  - olusacak
+  - duvar
   - 
   - 
   - 

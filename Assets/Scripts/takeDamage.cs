@@ -6,18 +6,26 @@ public class takeDamage : MonoBehaviour
 {
     public bool getHit;
     private Animator _animator;
-    private int swordDamage = 1;
-    public GameObject Enemy;
+    private int swordDamage = 25;
     private int enemyHealth;
-    public GameObject Baphomet;
+    GameObject Baphomet;
     public bool isDead;
-    
+
+
+    HealthBarScript _healthBarScriptEnemy;
+
     private void Awake()
     {
-         enemyHealth = Enemy.GetComponent<EnemyAI>().enemyHealth;
-        _animator = GetComponent<Animator>();
+        Baphomet = GameObject.FindGameObjectWithTag("baphomet");
+        _healthBarScriptEnemy = GameObject.FindGameObjectWithTag("EnemyHealthBar").GetComponent<HealthBarScript>();
+        enemyHealth =this.gameObject.GetComponent<EnemyAI>().enemyHealth;
     }
-
+    private void Start()
+    {
+        
+        _animator = GetComponent<Animator>();
+        _healthBarScriptEnemy.SetMaxValue(enemyHealth);
+    }
     private void OnTriggerEnter(Collider other)
     {
     if (other.gameObject.CompareTag("baphomet") && Baphomet.GetComponent<CapsuleCollider>().enabled==true)
@@ -27,6 +35,7 @@ public class takeDamage : MonoBehaviour
                 getHit = true;
                 _animator.SetBool("GetHit", getHit);
                 enemyHealth -= swordDamage;
+            _healthBarScriptEnemy.SetHealth(enemyHealth);
                 Debug.Log("Enemy Caný: " + enemyHealth);
                 Invoke(nameof(CapsuleColliderKapatma),.01f);
             //  getHit = true;
@@ -40,7 +49,7 @@ public class takeDamage : MonoBehaviour
                 isDead = true;
                 _animator.SetBool("isDead", isDead);
                 gameObject.GetComponent<BoxCollider>().enabled = false; //Karaktere çarpýp kameranýn rotasyonunu deðiþtirmesin diye bunu yaptýk.
-                Destroy(Enemy, 2.2f);         
+                Destroy(this.gameObject, 2.2f);         
             }    
         }
         Invoke(nameof(HitFalselama), .5f); // ** bunu arttýrabiliriz, eðer düzelmezse buraya bakalým  
