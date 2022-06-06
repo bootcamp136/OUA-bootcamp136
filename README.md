@@ -146,6 +146,8 @@ Daily Scrum: Daily Scrum toplantıları Discord üzerinden yapılmasına karar v
 
 2. Sprint'in sonunda alınan projenin demo ölçeğine küçültülmesi kararı sonucunda oyunun mekanikleri, konsepti ve kabaca hikayesi kullanıcıya aktarılacak şekilde proje tamamlanmıştır. Envanter eklentisi ve kayıt alma demo'nun ölçeğinde karşılıksız kalacağı için eklenmemesi kararlaştırılmıştır.
 
+Sprint Review katılımcıları: Yusuf Koray CAN , Can APA
+
 ### Sprint Retrospective:
 
 Bootcamp bitişinin ay sonu ve final dönemine denk gelmiş olması ve takımda 3 kişinin eksik olmasına rağmen eğitim sürecinde anlatılan konular ve daha fazlası proje içerisinde kendisi göstermektedir. İptal edilen Backlog'lar eklenmesi dahilinde bile proje içerisinde pek bir anlam ifade etmemektedir, yine de proje 380 puan hedefini 40 puan eksik ile tamamlanmıştır. İki kişi olarak en ufak serbest zaman bu proje için harcanmıştır. Bu çaba için çok teşekkür ediyorum.
