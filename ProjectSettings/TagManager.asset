@@ -18,6 +18,14 @@ TagManager:
   - SceneDataSetting
   - HealthBar
   - EnemyHealthBar
+  - Letter1
+  - TextDiamond
+  - ControlsText
+  - CanvasPauseEkrani
+  - Lekrani
+  - damageP
+  - Portal
+  - DeathCanvas
   layers:
   - Default
   - TransparentFX

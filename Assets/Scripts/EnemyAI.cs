@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//TODO
-//CHASE'LERKENKÝ HIZINI ARTTIR
+
 
 public class EnemyAI : MonoBehaviour
 {
@@ -20,6 +19,7 @@ public class EnemyAI : MonoBehaviour
 
     //Attack için gameObje üretimi
     public GameObject projectile;
+
 
 
     [SerializeField] NavMeshAgent _navMeshAgent;
@@ -41,7 +41,6 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
-    
 
 
     private void Awake()
@@ -70,7 +69,7 @@ public class EnemyAI : MonoBehaviour
             
         }
 
-        if (playerInSightRange && playerInAttackRange)
+        if (playerInSightRange && playerInAttackRange )
         {
             AttackPlayer();
            
@@ -142,7 +141,9 @@ public class EnemyAI : MonoBehaviour
     }
     private void AttackPlayer()
     {
-        Invoke(nameof(Attacking), .2f);
+     
+            Invoke(nameof(Attacking), .2f);
+        
         _navMeshAgent.SetDestination(transform.position);
         transform.LookAt(_player);
     }
@@ -150,10 +151,14 @@ public class EnemyAI : MonoBehaviour
     {
         attack = true;
         _animator.SetBool("attack", attack);
+
+    
+        
     }
+    
     private void Dead()
     {
-        _navMeshAgent.SetDestination(transform.position);
+        YerindeKalma();
     }
     private void YerindeKalma()
     {

@@ -85,7 +85,10 @@ namespace StarterAssets
         private float _cinemachineTargetPitch;
 
         // player
+
+        private GameObject _pickable;
         public LayerMask enemy;
+        private bool pickable;
 
         private bool enemyInSightRange;
         public float sightRangeforEnemy;
@@ -93,8 +96,8 @@ namespace StarterAssets
         [SerializeField] takeDamage _takeDamage;
          HealthBarScript _healtBarPlayer,_healthBarEnemy;
 
-        [SerializeField] TMP_Text _text; 
-        private float _numDiamond=0;
+        [SerializeField] public   TMP_Text _text; 
+        public static  float _numDiamond=0;
         private bool bobbing;
         private bool back;
         private bool dodgeRight;
@@ -103,6 +106,10 @@ namespace StarterAssets
         private bool idle;
         public bool atack;
         public bool _damaged;
+
+
+        
+
 
         public float playerHealth = 120;
         
@@ -167,13 +174,14 @@ namespace StarterAssets
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
             _capsuleCollider = GetComponent<CapsuleCollider>();
-            //_controller.detectCollisions = false;
-           // _takeDamage = GameObject.FindGameObjectWithTag("Enemy").GetComponent<takeDamage>();
+            
             changeRotateAndShakeScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ChangeRotateAndShake>();
         }
 
         private void Start()
         {
+            _text.text = "x" + (_numDiamond).ToString();
+
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
@@ -191,13 +199,15 @@ namespace StarterAssets
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
 
-           
+
             
 
             
         }
-
         
+ 
+
+
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
@@ -215,7 +225,7 @@ namespace StarterAssets
             }
             if (!enemyInSightRange)
             {
-                _healtBarPlayer.GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
+               _healtBarPlayer.GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
                 _healthBarEnemy.GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
             }
 
@@ -224,15 +234,6 @@ namespace StarterAssets
             {
                 if (Input.GetKeyDown(KeyCode.Mouse0) && Grounded == true && _input.sprint == false) //Damage alma animasyonu oynamasın.
                 {
-                    //GameObject.FindGameObjectWithTag("baphomet").GetComponent<CapsuleCollider>().enabled = true;
-                    //Invoke(nameof(TekrardanPasifHaleGetirme), .2f);  //Tekrardan pasif hale getirme değil de, aktif hale tam sallama animasyonunun ortasında getirip , sonrasında saliselik beklemeden sonra 
-                    //pasif hale getirerek bu işi çözebileceğimi düşünüyorum.
-
-                    //Bunları sakın kaybetme. Çok önemli triggerlanması için ve çift triggerlanMAMAsı için.!!!!
-
-                    // Debug.Log("Triggerlandı");
-                    
-                    StartCoroutine(DamageColliderAyarlama(1));
                     atack = true;
                     _animator.SetBool("Atack", atack);
                     if (atack == true)
@@ -257,9 +258,6 @@ namespace StarterAssets
 
 
                     StartCoroutine(changeRotateAndShakeScript.shakeAttackEffect(changeRotateAndShakeScript.shakeAttackTime));
-
-                    //Atak yapılırkeni _damaged'in false olmasını istiyorum,  ama burda false'lasak aşağı kısımda true olacak.
-
                     _damaged = false;
                     MoveSpeed = 0.0f;
                     SprintSpeed = 0.0f;
@@ -325,13 +323,25 @@ namespace StarterAssets
 
                 }
             }
+            
+            
+               
+                if (pickable==true && Input.GetKeyDown(KeyCode.E) && Grounded == true && !Input.GetKeyDown(KeyCode.Mouse0) && _input.sprint == false)
+                {
+                    _animator.SetTrigger("Take");
+                    _numDiamond += 1;   //İkili topluyor. 0.5 YAPTIM. İlerleyen zamanalarda değiştir. Belki trigger'dan kaynaklanıyordur. Sonradan bak.
+                    _text.text = "x" + (_numDiamond).ToString();
+                    Destroy(_pickable.gameObject, 1f);
+                    Invoke(nameof(PickableFalselama), .001f);
+                }
+
         }
 
-    
-      
+
+
         private void CharacterMoveForwardBack()
         {
-            Dodge.z = 50 * Time.deltaTime;
+            Dodge.z = 30 * Time.deltaTime;
             _controller.Move(Dodge);
         }
         private void CharacterMoveLeft()
@@ -441,17 +451,10 @@ namespace StarterAssets
 
         private void OnTriggerEnter(Collider other)
         {
-          //  if (other.gameObject.CompareTag("PickableObject")) //OnTriggerStay'de yaz.
-          //  {                                                  //OnTriggerStay'de yaz.
-          //      Debug.Log("Triggerlandı");
-          //      
-          //      StartCoroutine(Checking(.001f));
-          //  }
+         
             if (other.gameObject.CompareTag("damage"))
             {
-
-                //  Debug.Log("Zombi atak yaptı.");
-                
+               
                 damageTruelama();
                 StartCoroutine(DamageYerkenDurma(1.0f)); //Buna bak.
                 if (_damaged ==true && atack == true)
@@ -463,10 +466,15 @@ namespace StarterAssets
                 Invoke(nameof(damageFalselama),.4f);
                 Invoke(nameof(idleFalselama), 0.01f);
 
-
             }
-         
+            
+            if (other.gameObject.CompareTag("PickableObject"))
+            {
+                pickable = true;
+                _pickable = other.gameObject;
+            }
 
+          
             IEnumerator DamageYerkenDurma(float time)
             {
                 MoveSpeed = 0.0f;
@@ -476,70 +484,20 @@ namespace StarterAssets
                 SprintSpeed = 10.0f;
             }
 
-
-         //  IEnumerator Checking(float time)
-         //  {
-         //      while (true)
-         //      {
-         //          yield return new WaitForSeconds(time);
-         //          if (Input.GetKeyDown(KeyCode.E) && Grounded == true && !Input.GetKeyDown(KeyCode.Mouse0) && _input.sprint == false)
-         //          {
-         //              Debug.Log("IENUMERATOR İÇERİSİNDE");
-         //              _animator.SetTrigger("Take");
-         //              GameObject otherGameObject = other.gameObject;
-         //              if(otherGameObject != null)
-         //              {
-         //                  BoxCollider collider = other.GetComponent<BoxCollider>();
-         //                  if (collider!=null )
-         //                  {
-         //                      other.gameObject.GetComponent<MeshRenderer>().enabled = false;
-         //                      other.gameObject.GetComponent<BoxCollider>().enabled = false;
-         //                  }
-         //              }
-         //              
-         //          }
-         //
-         //      }
-         //  }
-        } 
-        IEnumerator DamageColliderAyarlama(float time)
-        {
-            DamageColliderPasif();
-            yield return new WaitForSeconds(time);
-            DamageColliderAktif();
-
         }
-        private void OnTriggerStay(Collider other)
+
+       
+        private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.CompareTag("PickableObject"))
             {
-                Debug.Log("Obje toplanabilir.");
-                if (Input.GetKeyDown(KeyCode.E) && Grounded == true && !Input.GetKeyDown(KeyCode.Mouse0) && _input.sprint == false)
-                {
-                    _animator.SetTrigger("Take");
-                    _numDiamond+=.5f;   //İkili topluyor. 0.5 YAPTIM. İlerleyen zamanalarda değiştir. Belki trigger'dan kaynaklanıyordur. Sonradan bak.
-                    _text.text = "x" + (_numDiamond).ToString();
-                    Destroy(other.gameObject, 1f);
-
-                    //Destroy olmuşsa diamond number değerini artır.
-                }
+                pickable = false;
             }
         }
-
-        private void DamageColliderAktif()
+        private void PickableFalselama()
         {
-           GameObject[] damages = GameObject.FindGameObjectsWithTag("damage");
-            damages[0].GetComponent<SphereCollider>().enabled = true;
-            damages[1].GetComponent<SphereCollider>().enabled = true;
+            pickable = false;
         }
-        private void DamageColliderPasif()
-        {
-            GameObject[] damages = GameObject.FindGameObjectsWithTag("damage");
-            damages[0].GetComponent<SphereCollider>().enabled = false;
-            damages[1].GetComponent<SphereCollider>().enabled = false;
-        }
-
-
         private void damageTruelama()
         {
             _damaged = true;
@@ -561,9 +519,6 @@ namespace StarterAssets
             }
             else
             {
-                //Numerator şeklinde yazsan daha sağlıklı olacak.
-                //Invoke(nameof(idleTruelama),0.7f);
-                //Invoke(nameof(idleFalselama),.8f);
                 StartCoroutine(idleAyarlama(1f));
             }
             
@@ -578,12 +533,6 @@ namespace StarterAssets
         }
         private void idleTruelama() //Her damage yedikten sonra çalışması lazım.
         {
-           // if(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >.8f)
-           // {
-           //     
-           //     idle = true;
-           //     _animator.SetBool("idle", idle);
-           // }
             idle = true;
             _animator.SetBool("idle", idle);
         }
@@ -598,6 +547,8 @@ namespace StarterAssets
         {
             CameraRotation();
         }
+
+      
 
         private void AssignAnimationIDs()
         {

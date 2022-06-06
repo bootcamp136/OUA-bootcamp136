@@ -10,34 +10,45 @@ public class RoomTemplates : MonoBehaviour
     public GameObject[] rightRooms;
 
     public List<GameObject> rooms;
-    public GameObject boss;
+
+    [SerializeField] GameObject portal;
+
+    [SerializeField] GameObject quad;
     public Vector3 lastRoomPosition;
+    int i = 0;
     private void Start()
     {
-        Invoke("BossInstantiate",4f); // Ne olur ne olmaz Room'larýn oluþma süresine 2 saniye verdim, sonra da arttýrýlabilir.
-        Invoke("BossInstantiateee", 4f); // Ne olur ne olmaz Room'larýn oluþma süresine 2 saniye verdim, sonra da arttýrýlabilir.
-        Invoke("BossInstantiateeee", 4f); // Ne olur ne olmaz Room'larýn oluþma süresine 2 saniye verdim, sonra da arttýrýlabilir.
-        Invoke(nameof(getLastRoomPosition), 1.5f);
      
+
+        Invoke(nameof(getLastRoomPosition), 3.5f);
+
+        Invoke(nameof(PortalInstantiate), 3.1f);
+
+       
+
     }
 
-    private void BossInstantiate() //En son odada Boss'u insantiate ettim.
+    private void Update()
     {
-        Instantiate(boss, rooms[rooms.Count - 1].transform.position, Quaternion.identity);
-        
+        if (StarterAssets.ThirdPersonController._numDiamond == 10 && i==0)
+        {
+            Invoke(nameof(QuadOlusturma), 3.2f);
+            i++;
+        }
     }
-    private void BossInstantiateee()
-    {
-        Instantiate(boss, rooms[rooms.Count  -2].transform.position, Quaternion.identity);
-    }
-    private void BossInstantiateeee()
-    {
-        Instantiate(boss, rooms[rooms.Count  -3].transform.position, Quaternion.identity);
-    }
+    private void PortalInstantiate() //En son odada Boss'u insantiate ettim.
+  {
+      Instantiate(portal, rooms[rooms.Count - 1].transform.position, Quaternion.identity);
+      
+  }
 
     private void getLastRoomPosition()
     {
         lastRoomPosition = rooms[rooms.Count - 1].transform.position;
+    }
+    private void QuadOlusturma()
+    {
+        Instantiate(quad,new Vector3(lastRoomPosition.x,lastRoomPosition.y+2.5f,lastRoomPosition.z) , Quaternion.identity);
     }
 
 }

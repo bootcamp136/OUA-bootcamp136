@@ -36,22 +36,13 @@ public class ChangeRotateAndShake : MonoBehaviour
         cinemachineVirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
         cinemachineVirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
     }
-
-    public IEnumerator BobbingEffect(float time)
+    public IEnumerator BossShakeEffect()
     {
-        //04 iyi gibi.
-            cinemachineCameraOffset.m_Offset.y = .06f;
-            yield return new WaitForSeconds(time);
-            cinemachineCameraOffset.m_Offset.y = -.06f;
-
-        
-    }
-    public IEnumerator IdleEffect(float time)
-    {
-        cinemachineCameraOffset.m_Offset.x = .4f;
-        yield return new WaitForSeconds(time);
-        cinemachineCameraOffset.m_Offset.x = 0f;
-        yield return new WaitForSeconds(time);
+        cinemachineVirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 1;
+        cinemachineVirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = .2f;
+        yield return new WaitForSeconds(.3f);
+        cinemachineVirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+        cinemachineVirtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
     }
 
 
