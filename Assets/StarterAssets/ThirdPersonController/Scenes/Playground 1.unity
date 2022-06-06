@@ -1771,7 +1771,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.2132472, y: 1}
+    m_SensorSize: {x: 1.1276276, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4016,7 +4016,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.2132472, y: 1}
+    m_SensorSize: {x: 1.1276276, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4442,7 +4442,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.2132472, y: 1}
+    m_SensorSize: {x: 1.1276276, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5753,7 +5753,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Tekrar Oynamak i\xE7in 'T'\n\xC7\u0131kmak i\xE7in '\xC7'"
+  m_text: 'Reload ''R''
+
+    Quit ''Q'''
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3148e124701809245865db3ef7239851, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
