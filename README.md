@@ -95,6 +95,9 @@ Daily Scrum: Daily Scrum toplantıları Discord üzerinden yapılmasına karar v
 
 ![2 (1)](https://user-images.githubusercontent.com/104436686/169898879-641a0336-221e-466a-a98e-67cde380296b.png)
 
+## Ürün Durumu: Ekran görüntüleri:
+
+
 ![1](https://user-images.githubusercontent.com/104436686/169898934-485a4455-df9a-48a1-ba4e-7ef1ef48b478.PNG)
 ![2](https://user-images.githubusercontent.com/104436686/169898943-61d3a4ed-dfb7-4d5b-bc8c-c465de6eed99.PNG)
 ![3](https://user-images.githubusercontent.com/104436686/169898946-53ff7f1e-faa7-4cd1-ae80-680c7194f663.PNG)
@@ -118,7 +121,34 @@ Kapsam demo ölçeğinde daraltılmıştır. Güncel bug'lar fixlenecektir.
 
 # Sprint 3 
 
+Sprint Notları:Miro board üzerinde göreceğiniz kırmızı işler(task'ler) kodlama, mavi işler sanat ve sarı işler yazılı araştırma'ları temsil eder.
 
+Daily Scrum: Daily Scrum toplantıları Discord üzerinden yapılmasına karar verilmiştir. Daily Scrum toplantısı örneği jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır:
+
+[Daily_Scrum_Notes_FIN.txt](https://github.com/bootcamp136/OUA-bootcamp136/files/8847852/Daily_Scrum_Notes_FIN.txt)
+
+
+![m1](https://user-images.githubusercontent.com/104436686/172245022-a7f63991-c55e-4b39-86f6-62f53ee8cfee.png)
+![m2](https://user-images.githubusercontent.com/104436686/172245030-8babac04-8404-4ff4-97a5-01d769c59a63.png)
+
+## Ürün Durumu: Ekran görüntüleri:
+
+
+![1](https://user-images.githubusercontent.com/104436686/172245232-0c2bde2f-9954-49d3-a666-8f861c9c3147.PNG)
+![2](https://user-images.githubusercontent.com/104436686/172245250-6d73a20c-7d38-4814-a876-aeaf3afae971.PNG)
+![3](https://user-images.githubusercontent.com/104436686/172245257-3e9a4a4e-e9c3-4478-ae43-34b9ba3129f1.PNG)
+![4](https://user-images.githubusercontent.com/104436686/172245264-059543af-8064-4e23-ab10-a580cde524de.PNG)
+![5](https://user-images.githubusercontent.com/104436686/172245303-eaee2d77-6ca4-4f43-989e-0c31aebcc50b.PNG)
+![6](https://user-images.githubusercontent.com/104436686/172245328-8ad8a2da-7124-43ee-ad4a-b0c3ef0c5811.PNG)
+
+
+### Sprint Review:
+
+2. Sprint'in sonunda alınan projenin demo ölçeğine küçültülmesi kararı sonucunda oyunun mekanikleri, konsepti ve kabaca hikayesi kullanıcıya aktarılacak şekilde proje tamamlanmıştır. Envanter eklentisi ve kayıt alma demo'nun ölçeğinde karşılıksız kalacağı için eklenmemesi kararlaştırılmıştır.
+
+### Sprint Retrospective:
+
+Bootcamp bitişinin ay sonu ve final dönemine denk gelmiş olması ve takımda 3 kişinin eksik olmasına rağmen eğitim sürecinde anlatılan konular ve daha fazlası proje içerisinde kendisi göstermektedir. İptal edilen Backlog'lar eklenmesi dahilinde bile proje içerisinde pek bir anlam ifade etmemektedir, yine de proje 380 puan hedefini 40 puan eksik ile tamamlanmıştır. İki kişi olarak en ufak serbest zaman bu proje için harcanmıştır. Bu çaba için çok teşekkür ediyorum.
 
 
 
